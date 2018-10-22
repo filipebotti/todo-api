@@ -12,7 +12,9 @@ gem 'puma', '~> 3.11'
 
 group :test do
   gem "rspec"
+  gem "rspec-rails"
   gem "rspec_junit_formatter"
+  gem "factory_bot_rails", "~> 4.0"
 end
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
@@ -20,6 +22,8 @@ end
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+gem 'rack-cors', :require => 'rack/cors'
+gem 'jwt'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
