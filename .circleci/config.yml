@@ -62,7 +62,7 @@ jobs:
   deploy:
     docker:
       - image: buildpack-deps:trusty
-    setps:
+    steps:
       - checkout
       - run:
           name: Deploy Master to Heroku
