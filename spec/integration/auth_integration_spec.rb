@@ -15,7 +15,7 @@ RSpec.describe "Auth Requests", :type => :request do
                 expect(json["access_token"]).to be_a(String)                
             end
             
-            it 'should return ok' do
+            it 'should respond with status code :ok' do
                 expect(response).to have_http_status(:ok)
             end
         end
@@ -32,7 +32,7 @@ RSpec.describe "Auth Requests", :type => :request do
                 expect(json["error"]).to be_a(String)
             end
             
-            it 'should return unauthorized' do
+            it 'should respond with status code :unauthorized' do
                 expect(response).to have_http_status(:unauthorized)
             end
         end
@@ -49,7 +49,7 @@ RSpec.describe "Auth Requests", :type => :request do
                 expect(json["error"]).to be_a(String)
             end
             
-            it 'should return unauthorized' do
+            it 'should responde with status code :unauthorized' do
                 expect(response).to have_http_status(:unauthorized)
             end
         end

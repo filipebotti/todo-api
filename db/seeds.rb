@@ -11,7 +11,7 @@ unless user
     username: 'root',
     name: 'Admin',
     password: '123456'
-  )
-
-  p 'User has been created!'
+  )  
 end
+
+p "User has been created with Id: #{user.id}!"

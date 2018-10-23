@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
+
+  skip_before_action :auth_validation, only: [:create]
+
+  before_action :is_owner, only: [:show, :update]
   before_action :set_user, only: [:show, :update, :destroy] 
-	before_action :is_owner, only: [:show, :update]
+	
   # GET /users/1
-	def show		
+  def show		
 		render json: @user    		
   end
 
@@ -32,7 +36,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-		def is_owner			
+    def is_owner			      
 			render(json: { error: "Unauthorized" }, status: :unauthorized) unless !params[:id].nil? && params[:id].to_i == @current_user.id
 		end
     # Only allow a trusted parameter "white list" through.
