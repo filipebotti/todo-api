@@ -58,6 +58,7 @@ RSpec.describe 'Task Requests', :type => :request do
                 end
             end
         end
+    end
 
         context "update task" do
             let!(:user) { FactoryBot.create(:user) }
@@ -113,18 +114,9 @@ RSpec.describe 'Task Requests', :type => :request do
                 before do
                     post "/tasks", params:{ task: { description: "new task", user_id: user.id }}, headers: { "Authorization" => @token }
                 end
-
+                
                 it { expect(response).to have_http_status(:created) }
-                it { expect(json["id"]).to_not be_nil }
-            end
-
-            context "without user" do
-                before do
-                    post "/tasks", params:{ task: { description: "new task" }}, headers: { "Authorization" => @token }
-                end
-
-                it { expect(response).to have_http_status(:unprocessable_entity) }
-                it { expect(json["user"]).to include("can't be blank")}
+                it { expect(json["task"]["id"]).to_not be_nil }
             end
 
             context "without description" do
@@ -160,6 +152,4 @@ RSpec.describe 'Task Requests', :type => :request do
             end
 
         end
-        
-    end
 end
