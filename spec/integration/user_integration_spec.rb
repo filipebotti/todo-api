@@ -66,6 +66,8 @@ RSpec.describe "User Request", :type => :request do
             end
 
             it { expect(response).to have_http_status(:created) }
+            it { expect(json["user"]["id"]).to_not be_nil}
+            it { expect(json["access_token"]).to_not be_nil }
         end
 
         context "with invalid params" do
