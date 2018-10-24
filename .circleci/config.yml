@@ -70,14 +70,6 @@ jobs:
           name: Deploy Master to Heroku
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-      - run:
-          name: Create db
-          command: |
-            heroku run rake db:create --app todo-api-vice
-      - run:
-          name: Run Migrations
-          command: |
-            heroku run rake db:migrate --app todo-api-vice
 workflows:
   version: 2
   build-deploy:
