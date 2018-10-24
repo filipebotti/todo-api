@@ -12,7 +12,7 @@ class AuthController < ApplicationController
 					exp: 1.day.from_now.to_i
 				}
 
-				render json: { access_token: JWTValidator.encode(payload)}, status: :ok
+				render json: { access_token: JWTValidator.encode(payload), user: user.as_json(only: [:id, :name, :username])}, status: :ok
 			else
 				render json: { error: "Incorrect username or password" }, status: :unauthorized
 			end
