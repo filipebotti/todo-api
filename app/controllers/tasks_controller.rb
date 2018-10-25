@@ -40,7 +40,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      hash = task.as_json
+      hash = @task.as_json
       hash[:uuid] = params[:uuid]
       render json: hash
     else
