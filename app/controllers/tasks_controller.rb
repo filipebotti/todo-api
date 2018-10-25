@@ -11,7 +11,14 @@ class TasksController < ApplicationController
     else
       @tasks = Task.user_tasks(@current_user)
     end
-    render json: @tasks
+    
+    hash = @tasks.map{ |item| 
+      item_h = item.as_json
+      item_h[:uuid] = SecureRandom.uuid 
+      item_h
+    }
+  
+    render json: hash
   end
 
   # GET /tasks/1
