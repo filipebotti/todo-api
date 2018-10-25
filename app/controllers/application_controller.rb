@@ -3,9 +3,8 @@ class ApplicationController < ActionController::API
 	before_action :add_cors_headers
 	before_action :auth_validation
 	
-	def add_cors_headers
-		origin = request.headers["Origin"]		
-		headers['Access-Control-Allow-Origin'] = origin
+	def add_cors_headers				
+		headers['Access-Control-Allow-Origin'] = "*"
 		headers['Access-Control-Allow-Methods'] = 'POST, GET, PATCH, PUT, DELETE'
 		allow_headers = request.headers["Access-Control-Request-Headers"]
 		if allow_headers.nil?
