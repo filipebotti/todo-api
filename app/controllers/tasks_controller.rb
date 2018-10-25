@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     else
       @tasks = Task.user_tasks(@current_user)
     end
-    
+
     hash = @tasks.map{ |item| 
       item_h = item.as_json
       item_h[:uuid] = SecureRandom.uuid 
@@ -40,7 +40,9 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      render json: @task
+      hash = task.as_json
+      hash[:uuid] = params[:uuid]
+      render json: hash
     else
       render json: @task.errors, status: :unprocessable_entity
     end
