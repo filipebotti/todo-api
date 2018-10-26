@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::API
-	before_action :auth_validation
+	before_action :auth_validation, except: [:fallback_index_html]
+
+	def fallback_index_html
+		render :file => 'public/index.html'
+	end
 
 	def auth_validation
 		if request.headers['Authorization'].present?
