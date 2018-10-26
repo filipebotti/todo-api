@@ -7,7 +7,7 @@ RSpec.describe "Auth Requests", :type => :request do
             let!(:user) { FactoryBot.create(:user) }
 
             before do
-                post '/auth', params: { username: 'john.doe', password: "123456" } 
+                post '/api/auth', params: { username: 'john.doe', password: "123456" } 
             end
 
             it 'return an acess token if valid params' do
@@ -24,7 +24,7 @@ RSpec.describe "Auth Requests", :type => :request do
             let!(:user) { FactoryBot.create(:user) }
 
             before do
-                post '/auth', params: { username: 'john.doe' } 
+                post '/api/auth', params: { username: 'john.doe' } 
             end
 
             it 'has an error message' do                
@@ -41,7 +41,7 @@ RSpec.describe "Auth Requests", :type => :request do
             let!(:user) { FactoryBot.create(:user) }
 
             before do
-                post '/auth', params: { username: 'john.doe', password: "123" } 
+                post '/api/auth', params: { username: 'john.doe', password: "123" } 
             end
 
             it 'has an error message' do                

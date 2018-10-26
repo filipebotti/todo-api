@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :tasks
-  resources :users, only: [:show, :update, :create]
+
+  scope '/api' do
+    resources :tasks
+    resources :users, only: [:show, :update, :create]
+  end
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-	post 'auth', to: 'auth#auth'
+	post 'api/auth', to: 'auth#auth'
 end

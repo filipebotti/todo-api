@@ -5,7 +5,7 @@ RSpec.describe 'Task Requests', :type => :request do
     describe "get tasks" do
         context "has no Authorization headers" do
             before do
-                get '/tasks'
+                get '/api/tasks'
             end
 
             it { expect(response).to have_http_status(:unauthorized)}
@@ -27,12 +27,12 @@ RSpec.describe 'Task Requests', :type => :request do
             end
 
             it "should respond with status code :ok" do
-                get '/tasks', params:{}, headers: { "Authorization" => @token }
+                get '/api/tasks', params:{}, headers: { "Authorization" => @token }
                 expect(response).to have_http_status(:ok) 
             end
 
             it "only not discarded" do
-                get '/tasks', params:{}, headers: { "Authorization" => @token }
+                get '/api/tasks', params:{}, headers: { "Authorization" => @token }
                 expect(json.length).to be > 0
                 json.each do |item|
                     expect(item).to include("deleted_at")
@@ -41,7 +41,7 @@ RSpec.describe 'Task Requests', :type => :request do
             end
 
             it 'only descarded' do
-                get '/tasks?status=discarded', params:{}, headers: { "Authorization" => @token }
+                get '/api/tasks?status=discarded', params:{}, headers: { "Authorization" => @token }
                 expect(json.length).to be > 0
                 json.each do |item|
                     expect(item).to include("deleted_at")
@@ -50,7 +50,7 @@ RSpec.describe 'Task Requests', :type => :request do
             end
 
             it 'all tasks' do
-                get '/tasks?status=all', params:{}, headers: { "Authorization" => @token }
+                get '/api/tasks?status=all', params:{}, headers: { "Authorization" => @token }
                 expect(json.length).to be > 0
                 json.each do |item|
                     expect(item).to include("deleted_at")
@@ -73,7 +73,7 @@ RSpec.describe 'Task Requests', :type => :request do
                     }
                     token = JWTValidator.encode(payload)                 
 
-                    put "/tasks/#{task.id}", params:{ task: { description: "updated_task" }}, headers: { "Authorization" => token }
+                    put "/api/tasks/#{task.id}", params:{ task: { description: "updated_task" }}, headers: { "Authorization" => token }
                 end                           
 
                 it { expect(response).to have_http_status(:ok) }
@@ -89,7 +89,7 @@ RSpec.describe 'Task Requests', :type => :request do
                     }
                     token = JWTValidator.encode(payload)                 
 
-                    put "/tasks/#{task.id}", params:{ task: { description: "" }}, headers: { "Authorization" => token }
+                    put "/api/tasks/#{task.id}", params:{ task: { description: "" }}, headers: { "Authorization" => token }
                 end
 
                 it { expect(response).to have_http_status(:unprocessable_entity) }
@@ -112,7 +112,7 @@ RSpec.describe 'Task Requests', :type => :request do
 
             context "valid params" do
                 before do
-                    post "/tasks", params:{ task: { description: "new task", user_id: user.id }}, headers: { "Authorization" => @token }
+                    post "/api/tasks", params:{ task: { description: "new task", user_id: user.id }}, headers: { "Authorization" => @token }
                 end
                 
                 it { expect(response).to have_http_status(:created) }
@@ -121,7 +121,7 @@ RSpec.describe 'Task Requests', :type => :request do
 
             context "without description" do
                 before do
-                    post "/tasks", params:{ task: { user_id: user.id }}, headers: { "Authorization" => @token }
+                    post "/api/tasks", params:{ task: { user_id: user.id }}, headers: { "Authorization" => @token }
                 end
 
                 it { expect(response).to have_http_status(:unprocessable_entity) }
@@ -141,12 +141,12 @@ RSpec.describe 'Task Requests', :type => :request do
                     token_type: 'vice_token'
                 }
                 @token = JWTValidator.encode(payload) 
-                delete "/tasks/#{task.id}", params: {}, headers: { "Authorization" => @token }
+                delete "/api/tasks/#{task.id}", params: {}, headers: { "Authorization" => @token }
             end
 
             it { expect(response).to have_http_status(:ok) }
             it "should updated deleted_at field" do
-                get "/tasks/#{task.id}", params: {}, headers: { "Authorization" => @token }
+                get "/api/tasks/#{task.id}", params: {}, headers: { "Authorization" => @token }
 
                 expect(json["deleted_at"]).to_not be_nil
             end

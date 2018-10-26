@@ -10,7 +10,7 @@ RSpec.describe "User Request", :type => :request do
 
         context "no Authorization headers" do
             it "should respond with status code :unauthorized" do                
-                get '/users/:id', params: { id: user.id }
+                get '/api/users/:id', params: { id: user.id }
                 expect(response).to have_http_status(:unauthorized)
             end
         end
@@ -23,7 +23,7 @@ RSpec.describe "User Request", :type => :request do
                     token_type: 'vice_token'
                 }
                 token = JWTValidator.encode(payload)            
-                get "/users/1", params: {}, headers: { 'Authorization' => token }
+                get "/api/users/1", params: {}, headers: { 'Authorization' => token }
             end
         
             it 'should responde with status code :unauthorized' do                
@@ -39,7 +39,7 @@ RSpec.describe "User Request", :type => :request do
                     token_type: 'vice_token'
                 }
                 token = JWTValidator.encode(payload)            
-                get "/users/#{user.id}", params: { }, headers: { 'Authorization' => token }
+                get "/api/users/#{user.id}", params: { }, headers: { 'Authorization' => token }
             end
 
             it "should respond with status code :ok" do
@@ -62,7 +62,7 @@ RSpec.describe "User Request", :type => :request do
                     password: '123456'
                 }
 
-                post '/users', params: { user: data }
+                post '/api/users', params: { user: data }
             end
 
             it { expect(response).to have_http_status(:created) }
@@ -78,7 +78,7 @@ RSpec.describe "User Request", :type => :request do
                     username: 'user',
                 }
 
-                post '/users', params: { user: data }
+                post '/api/users', params: { user: data }
                 expect(response).to have_http_status(:unprocessable_entity)
             end
 
@@ -88,7 +88,7 @@ RSpec.describe "User Request", :type => :request do
                     password: '123456'
                 }
 
-                post '/users', params: { user: data }
+                post '/api/users', params: { user: data }
                 expect(response).to have_http_status(:unprocessable_entity)
             end
 
@@ -98,7 +98,7 @@ RSpec.describe "User Request", :type => :request do
                     password: '123456'
                 }
 
-                post '/users', params: { user: data }
+                post '/api/users', params: { user: data }
                 expect(response).to have_http_status(:unprocessable_entity)
             end
         end
@@ -108,7 +108,7 @@ RSpec.describe "User Request", :type => :request do
 
         context 'with no Authorization headers' do
             it "should respond with status code :unauthorized" do
-                put "/users/1"
+                put "/api/users/1"
                 expect(response).to have_http_status(:unauthorized)
             end
         end
@@ -126,7 +126,7 @@ RSpec.describe "User Request", :type => :request do
                     username: 'updated_username',
                 }
 
-                put "/users/#{user.id}", params: { user: data }, headers: { "Authorization" => token }
+                put "/api/users/#{user.id}", params: { user: data }, headers: { "Authorization" => token }
             end
             
             it { expect(response).to have_http_status(:ok) }
