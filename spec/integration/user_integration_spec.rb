@@ -62,7 +62,7 @@ RSpec.describe "User Request", :type => :request do
                     password: '123456'
                 }
 
-                post '/api/users', params: { user: data }
+                post '/api/users', params: data
             end
 
             it { expect(response).to have_http_status(:created) }
@@ -78,7 +78,7 @@ RSpec.describe "User Request", :type => :request do
                     username: 'user',
                 }
 
-                post '/api/users', params: { user: data }
+                post '/api/users', params: data
                 expect(response).to have_http_status(:unprocessable_entity)
             end
 
@@ -88,7 +88,7 @@ RSpec.describe "User Request", :type => :request do
                     password: '123456'
                 }
 
-                post '/api/users', params: { user: data }
+                post '/api/users', params: data
                 expect(response).to have_http_status(:unprocessable_entity)
             end
 
@@ -98,7 +98,7 @@ RSpec.describe "User Request", :type => :request do
                     password: '123456'
                 }
 
-                post '/api/users', params: { user: data }
+                post '/api/users', params: data
                 expect(response).to have_http_status(:unprocessable_entity)
             end
         end
@@ -126,7 +126,7 @@ RSpec.describe "User Request", :type => :request do
                     username: 'updated_username',
                 }
 
-                put "/api/users/#{user.id}", params: { user: data }, headers: { "Authorization" => token }
+                put "/api/users/#{user.id}", params: data, headers: { "Authorization" => token }
             end
             
             it { expect(response).to have_http_status(:ok) }

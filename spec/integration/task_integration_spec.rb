@@ -73,7 +73,7 @@ RSpec.describe 'Task Requests', :type => :request do
                     }
                     token = JWTValidator.encode(payload)                 
 
-                    put "/api/tasks/#{task.id}", params:{ task: { description: "updated_task" }}, headers: { "Authorization" => token }
+                    put "/api/tasks/#{task.id}", params:{ description: "updated_task" }, headers: { "Authorization" => token }
                 end                           
 
                 it { expect(response).to have_http_status(:ok) }
@@ -89,7 +89,7 @@ RSpec.describe 'Task Requests', :type => :request do
                     }
                     token = JWTValidator.encode(payload)                 
 
-                    put "/api/tasks/#{task.id}", params:{ task: { description: "" }}, headers: { "Authorization" => token }
+                    put "/api/tasks/#{task.id}", params:{ description: "" }, headers: { "Authorization" => token }
                 end
 
                 it { expect(response).to have_http_status(:unprocessable_entity) }
@@ -112,7 +112,7 @@ RSpec.describe 'Task Requests', :type => :request do
 
             context "valid params" do
                 before do
-                    post "/api/tasks", params:{ task: { description: "new task", user_id: user.id }}, headers: { "Authorization" => @token }
+                    post "/api/tasks", params:{ description: "new task" }, headers: { "Authorization" => @token }
                 end
                 
                 it { expect(response).to have_http_status(:created) }
@@ -121,7 +121,7 @@ RSpec.describe 'Task Requests', :type => :request do
 
             context "without description" do
                 before do
-                    post "/api/tasks", params:{ task: { user_id: user.id }}, headers: { "Authorization" => @token }
+                    post "/api/tasks", params:{ user_id: user.id }, headers: { "Authorization" => @token }
                 end
 
                 it { expect(response).to have_http_status(:unprocessable_entity) }
